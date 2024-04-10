@@ -11,6 +11,7 @@
 
 ### Avisos ⚠️
 - A operação UPLOAD não está funcionando corretamente.
+- Não está exibindo a mensagem de BAIXADO CORRETAMENTE
 
 > Status: Preparando Atualizações 🧬
 > Versão: 0.0.1
