@@ -4,9 +4,9 @@ import java.util.concurrent.*;
 
 public class ServerArquivos{
 
-    public static void main(String[] args) throws IOException {
-        ExecutorService executor = Executors.newFixedThreadPool(100);
-        ServerSocket servidorSocket = new ServerSocket(1212);
+    public static void main(String[] args) throws IOException{
+        ExecutorService executor = Executors.newFixedThreadPool(100); //Urilização de Threads.
+        ServerSocket servidorSocket = new ServerSocket(1212); //Ligando o servidor na porta escolhida.
         System.out.println("Servidor ligado na porta 1212");
 
         while (true){
@@ -31,11 +31,11 @@ public class ServerArquivos{
                 String operation = dis.readUTF();
 
                 switch (operation){
-                    case "UPLOAD":
+                    case "UPLOAD": //Coodigo da opção UPLOAD!
                         FileOutputStream fos = new FileOutputStream(fileName);
                         byte[] buffer = new byte[4096];
 
-                        int filesize = 15000; //Tamanho do arquivo
+                        int filesize = 20000;
                         int read = 0;
                         int totalRead = 0;
                         int remaining = filesize;
@@ -46,10 +46,10 @@ public class ServerArquivos{
                         }
 
                         fos.close();
-                        dos.writeUTF("Arquivo: " + fileName + " RECEBIDO corretamente.");
+                        dos.writeUTF("Arquivo: " + fileName + " ENVIADO corretamente.");
                         break;
 
-                    case "DOWNLOAD":
+                    case "DOWNLOAD": //Coodigo da opção DOWNLOAD!
                         FileInputStream fis = new FileInputStream(fileName);
                         buffer = new byte[4096];
 
@@ -58,20 +58,21 @@ public class ServerArquivos{
                         }
 
                         fis.close();
-                        dos.writeUTF("Arquivo: " + fileName + " ENVIADO corretamente.");
+                        dos.writeUTF("Arquivo: " + fileName + " BAIXADO corretamente.");
                         break;
 
-                    case "DELETE":
+                    case "DELETE": //Coodigo da opção DELETE!
                         File file = new File(fileName);
                         if(file.delete()){
                             dos.writeUTF("Arquivo: " + fileName + " EXCLUIDO com SUCESSO!");
                         }else{
-                            dos.writeUTF("Arquivo: " + fileName + " não encontrado.");
+                            dos.writeUTF("Arquivo: " + fileName + " não encontrado."); //Caso o cliente passe um caminho que não existe,
+                                                                                           //sera exibido essa mensagem!
                         }
                         break;
                 }
-                dis.close();
-                dos.close();
+                dis.close(); //Fechando o fluxo de Entrada
+                dos.close(); //Fechando o fluxo de Saida
                 clienteSocket.close();
             }catch (IOException e){
                 throw new RuntimeException(e);
