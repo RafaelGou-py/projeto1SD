@@ -8,9 +8,9 @@ public class ClienteArquivos{
         DataInputStream dis = new DataInputStream(clienteSocket.getInputStream());
         DataOutputStream dos = new DataOutputStream(clienteSocket.getOutputStream());
 
-        String fileName = "Arquivos/Estudar.txt"; //Caminho do arquivo(NA PASTA ARQUIVOS do codigo) que vc deseja manipular.
+        String fileName = "Arquivos/High noon Yone.jpg"; //Caminho do arquivo(NA PASTA ARQUIVOS do codigo) que vc deseja manipular.
                                                   //Caso a operação abaixo seja "DOWNLOAD", o arquivo nao deve existir na pasta.
-        String operation = "UPLOAD"; //Trocar para o que vc quer que aconteça com o arquivo.
+        String operation = "DELETE"; //Trocar para o que vc quer que aconteça com o arquivo.
 
         dos.writeUTF(fileName);
         dos.writeUTF(operation);
