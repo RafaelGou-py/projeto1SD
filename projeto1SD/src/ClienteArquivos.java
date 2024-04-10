@@ -16,7 +16,7 @@ public class ClienteArquivos{
         dos.writeUTF(operation);
 
         switch (operation){
-            case "UPLOAD": //Infelizmente não está funcionando.
+            case "UPLOAD": //Infelizmente não está funcionando corretamente.
                 FileInputStream fis = new FileInputStream(fileName);
                 byte[] buffer = new byte[4096];
 
