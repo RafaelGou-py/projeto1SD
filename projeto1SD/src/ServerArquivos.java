@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 public class ServerArquivos{
 
     public static void main(String[] args) throws IOException{
-        ExecutorService executor = Executors.newFixedThreadPool(100); //Urilização de Threads.
+        ExecutorService executor = Executors.newFixedThreadPool(100); //Utilização de Threads.
         ServerSocket servidorSocket = new ServerSocket(1212); //Ligando o servidor na porta escolhida.
         System.out.println("Servidor ligado na porta 1212");
 
