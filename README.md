@@ -1,7 +1,8 @@
 # Projeto 1 - Servidor Socket de Arquivos
 
-### Desenvolvedor 👨‍💻
+### Desenvolvedores 👨‍💻
 - Rafael Seixas Gouveia
+- João Bezerra de Souza Neto
 
 ### Tecnologia/Bibliotecas Utilizadas 📟
 - JAVA
