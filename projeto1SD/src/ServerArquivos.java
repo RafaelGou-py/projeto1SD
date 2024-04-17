@@ -5,20 +5,20 @@ import java.util.concurrent.*;
 public class ServerArquivos{
 
     public static void main(String[] args) throws IOException{
-        ExecutorService executor = Executors.newFixedThreadPool(100); //Utilização de Threads.
-        ServerSocket servidorSocket = new ServerSocket(1212); //Ligando o servidor na porta escolhida.
+        ExecutorService executor = Executors.newFixedThreadPool(100);
+        ServerSocket servidorSocket = new ServerSocket(1212);
         System.out.println("Servidor ligado na porta 1212");
 
         while (true){
             Socket clienteSocket = servidorSocket.accept();
-            executor.submit(new ClientHandler(clienteSocket));
+            executor.submit(new ClientAcoes(clienteSocket));
         }
     }
 
-    static class ClientHandler implements Runnable{
+    static class ClientAcoes implements Runnable{
         private final Socket clienteSocket;
 
-        public ClientHandler(Socket socket){
+        public ClientAcoes(Socket socket){
             this.clienteSocket = socket;
         }
 
@@ -31,7 +31,7 @@ public class ServerArquivos{
                 String operation = dis.readUTF();
 
                 switch (operation){
-                    case "UPLOAD": //Coodigo da opção UPLOAD!
+                    case "UPLOAD":
                         FileOutputStream fos = new FileOutputStream(fileName);
                         byte[] buffer = new byte[4096];
 
@@ -49,7 +49,7 @@ public class ServerArquivos{
                         dos.writeUTF("Arquivo: " + fileName + " ENVIADO corretamente.");
                         break;
 
-                    case "DOWNLOAD": //Coodigo da opção DOWNLOAD!
+                    case "DOWNLOAD":
                         FileInputStream fis = new FileInputStream(fileName);
                         buffer = new byte[4096];
 
@@ -61,18 +61,17 @@ public class ServerArquivos{
                         dos.writeUTF("Arquivo: " + fileName + " BAIXADO corretamente.");
                         break;
 
-                    case "DELETE": //Coodigo da opção DELETE!
+                    case "DELETE":
                         File file = new File(fileName);
                         if(file.delete()){
                             dos.writeUTF("Arquivo: " + fileName + " EXCLUIDO com SUCESSO!");
                         }else{
-                            dos.writeUTF("Arquivo: " + fileName + " não encontrado."); //Caso o cliente passe um caminho que não existe,
-                                                                                           //sera exibido essa mensagem!
+                            dos.writeUTF("Arquivo: " + fileName + " não encontrado.");                                                                                
                         }
                         break;
                 }
-                dis.close(); //Fechando o fluxo de Entrada
-                dos.close(); //Fechando o fluxo de Saida
+                dis.close();
+                dos.close();
                 clienteSocket.close();
             }catch (IOException e){
                 throw new RuntimeException(e);
