@@ -4,19 +4,18 @@ import java.net.*;
 public class ClienteArquivos{
 
     public static void main(String[] args) throws IOException{
-        Socket clienteSocket = new Socket("localhost", 1212); //Se conectando ao servidor.
+        Socket clienteSocket = new Socket("localhost", 1212);
         DataInputStream dis = new DataInputStream(clienteSocket.getInputStream());
         DataOutputStream dos = new DataOutputStream(clienteSocket.getOutputStream());
 
-        String fileName = "Arquivos/High noon Yone.jpg"; //Caminho do arquivo(na pasta ARQUIVOS do codigo) que vc deseja manipular.
-                                                  //Caso a operação abaixo seja "DOWNLOAD", o arquivo nao deve existir na pasta.
-        String operation = "DELETE"; //Trocar para o que vc quer que aconteça com o arquivo.
+        String fileName = "Arquivos/High noon Yone.jpg";                                             
+        String operation = "DELETE";
 
         dos.writeUTF(fileName);
         dos.writeUTF(operation);
 
         switch (operation){
-            case "UPLOAD": //Infelizmente não está funcionando corretamente.
+            case "UPLOAD":
                 FileInputStream fis = new FileInputStream(fileName);
                 byte[] buffer = new byte[4096];
 
@@ -29,7 +28,7 @@ public class ClienteArquivos{
                 System.out.println(dis.readUTF());
                 break;
 
-            case "DOWNLOAD": //Vai baixar o arquivo no diretorio que vc selecionar.
+            case "DOWNLOAD":
                 FileOutputStream fos = new FileOutputStream(fileName);
                 buffer = new byte[4096];
 
@@ -41,12 +40,12 @@ public class ClienteArquivos{
                 System.out.println(dis.readUTF());
                 break;
 
-            case "DELETE": //Vai deletar o arquivo que vc selecionar.
+            case "DELETE":
                 System.out.println(dis.readUTF());
                 break;
         }
-        dis.close(); //Fechando o fluxo de Entrada
-        dos.close(); //Fechando o fluxo de Saida
+        dis.close();
+        dos.close();
         clienteSocket.close();
     }
 }
